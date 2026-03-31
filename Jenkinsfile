@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/shabina29/automation_exercise_logic.git'
+                git branch: 'main', url: 'https://github.com/shabina29/automation_exercise_logic.git'
             }
         }
 
