@@ -75,6 +75,11 @@ public class LoginTest {
         System.out.println("user click on the login button");
         System.out.println("user logged in successfully");
         
-        driver.close();
+        if (driver != null) {
+            driver.quit();
+        }
 
 }}
+
+/*“In mobile automation, we use driver.quit() instead of close()
+ *  because there are no browser windows, and quit() properly ends the Appium session.”*/
