@@ -6,7 +6,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.net.URL;
 import java.time.Duration;
 
-public class AppLaunchTest {
+public class AppLaunchTestWithNote {
 
     public static void main(String[] args) throws Exception {
 
@@ -31,6 +31,8 @@ public class AppLaunchTest {
         // Direct correct activity launch karne ke liye (important for stability)
         cap.setCapability("appPackage", "com.swaglabsmobileapp");
         cap.setCapability("appActivity", "com.swaglabsmobileapp.MainActivity");
+        //appActivity tells Appium which screen or activity to launch when the app starts."
+        //"appPackage is used to identify which application I want to automate on the device."
 
         // ================= STABILITY SETTINGS =================
         // Permissions automatically allow ho jaye
@@ -56,9 +58,11 @@ public class AppLaunchTest {
         
         // ================= DRIVER INITIALIZATION =================
         // Appium server se connection establish karke app launch hota hai
-        AndroidDriver driver = new AndroidDriver(
-                new URL("http://127.0.0.1:4723"), cap
-        );
+        AndroidDriver driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), cap);
+                //👉 IP Address (Localhost) :http://127.0.0.1
+                //127.0.0.1 refers to the local machine where the Appium server is running
+                //"4723 is the default port where Appium server accepts requests."
+        
 
         // Implicit wait (elements load hone ke liye wait)
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -284,4 +288,21 @@ cap.setCapability("deviceName", "Android Emulator");
 “The emulator name like emulator-5554 is dynamically assigned based on available ports. 
 It usually starts from 5554 for the first emulator and increments for additional instances. 
 I verify the device using adb devices before execution.”
+
+=================================================================================================
+📱 ✅ 2. Launch iOS Application (Appium)
+DesiredCapabilities caps = new DesiredCapabilities();
+
+caps.setCapability("platformName", "iOS");
+caps.setCapability("deviceName", "iPhone 14");
+caps.setCapability("platformVersion", "16.0");
+caps.setCapability("automationName", "XCUITest");
+caps.setCapability("app", "/path/to/app.app");
+
+AppiumDriver driver = new IOSDriver(new URL("http://127.0.0.1:4723"), caps);
+
+Explanation:
+
+Set iOS capabilities
+Use IOSDriver to launch app
 */
