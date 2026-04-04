@@ -47,7 +47,7 @@
 
 	        Thread.sleep(3000);
 	        driver.quit();
-	    }
+	    }	}
 
 	    // ================= INTERVIEW QUESTIONS & ANSWERS =================
 
@@ -81,6 +81,126 @@
 	    // Q10: How do you handle screenshot naming?
 	    // A: By adding timestamp or test case name to avoid overwrite.
 
+
+
+/*🧠 HOW TO EXPLAIN IN INTERVIEW
+
+👉 Say this:
+
+“I take screenshot using TakesScreenshot interface and getScreenshotAs method. 
+I store it using FileUtils, and usually capture screenshots on test failure for debugging.”
+
+🔥 PRO TIP
+
+👉 If you say this → interviewer impressed:
+
+“In framework, I integrate screenshot capture inside TestNG listeners for failure reporting.”*/
+	
+	
+	// ================= TESTNG LISTENER NOTES =================
+
+	// 🎯 WHERE DO WE KEEP TESTNG LISTENER?
+
+	// ✅ Standard Structure (REAL PROJECT)
+	/*
+	src/test/java
+	   ├── tests/
+	   │     ├── LoginTest.java
+	   │
+	   ├── base/
+	   │     ├── BaseTest.java
+	   │
+	   ├── listeners/        ✅ ⭐ HERE
+	   │     ├── TestListener.java
+	*/
+
+	// 👉 Listener is kept in separate package: listeners
+
+
+	// 🎯 WHY SEPARATE PACKAGE?
+
+	// 👉 Because:
+	// ✔ Reusable for all test classes
+	// ✔ Clean framework design
+	// ✔ Easy to manage logging/reporting
+
+
+	// 🎯 HOW TO USE LISTENER?
+
+	// ✅ 1. Create Listener Class
+
+	/*
+	package listeners;
+
+	import org.testng.ITestListener;
+	import org.testng.ITestResult;
+
+	public class TestListener implements ITestListener {
+
+	    @Override
+	    public void onTestFailure(ITestResult result) {
+	        System.out.println("Test Failed: " + result.getName());
+	    }
 	}
+	*/
 
 
+	// ✅ 2. Attach Listener
+
+	// 👉 Option 1: Using Annotation (MOST COMMON)
+
+	/*
+	@Listeners(listeners.TestListener.class)
+	public class LoginTest {
+	}
+	*/
+
+
+	// 👉 Option 2: Using testng.xml
+
+	/*
+	<listeners>
+	    <listener class-name="listeners.TestListener"/>
+	</listeners>
+	*/
+
+
+	// 🎯 HOW SCREENSHOT CONNECTS HERE 🔥
+
+	// 👉 Inside listener:
+
+	/*
+	public void onTestFailure(ITestResult result) {
+	    takeScreenshot(result.getName());
+	}
+	*/
+
+	// 👉 This is how auto screenshot on failure works
+
+
+	// 🧠 INTERVIEW ANSWER (VERY IMPORTANT)
+
+	// 👉 Say this:
+	// “I create TestNG listeners in a separate listeners package and use them
+	//  to capture screenshots, logs, and reports during test execution,
+	//  especially on failures.”
+
+
+	// 🔥 PRO TIP (ADVANCED ANSWER)
+
+	// 👉 Add this:
+	// “In my framework, I integrate listeners with reporting tools like
+	//  Extent Reports to capture screenshots on failure.”
+
+
+	// ✅ SUMMARY
+
+	/*
+	Item              Location
+	---------------------------
+	Listener class    listeners package
+	Use               Annotation / testng.xml
+	Purpose           Logging, Screenshot, Reporting
+	*/
+
+	// =========================================================
