@@ -133,3 +133,35 @@ public class LongPressGesture {
     // Q5: Real use case of long press?
     // A: Context menu, drag-drop, selecting options.
 
+
+//===============================================================================
+/*🧠 SUPER SIMPLE UNDERSTANDING
+
+👉 Real life:
+
+Finger moves to element
+Finger touches screen
+Finger holds for 2 sec
+Finger lifts
+
+👉 That = LONG PRESS 💯
+
+🎯 INTERVIEW PERFECT ANSWER
+
+👉 Say this:
+
+“Long press is performed by pressing and holding on an element using W3C actions. 
+The hold duration is controlled using Duration while the finger stays at same position.”
+
+🔥 KEY LINE (INTERVIEW FOCUS)
+
+👉 This one:
+
+Duration.ofSeconds(2)
+
+👉 That = difference between tap vs long press
+
+⚡ MEMORY TRICK
+
+👉 Tap = press + release
+👉 Long press = press + hold + release*/
