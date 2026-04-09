@@ -1,54 +1,132 @@
 package com.appium.learn;
+// Package → organizes class inside project
 
 import io.appium.java_client.AppiumBy;
+// Appium locator strategy (best for mobile)
+
 import io.appium.java_client.android.AndroidDriver;
+// Android driver to control device
 
 import org.openqa.selenium.By;
+// Used to define locator
+
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebElement;
+// Used to define device + app configuration
 
 import java.net.URL;
+// Used to connect to Appium server
+
 import java.time.Duration;
-import java.util.Map;
+// Used for wait
 
 public class TapGestureTouchAction {
 
-    public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
 
-        // ================= CAPABILITIES =================
-        DesiredCapabilities cap = new DesiredCapabilities();
+		// ================= CAPABILITIES =================
+		DesiredCapabilities cap = new DesiredCapabilities();
+		// Object to store device + app configuration
 
-        cap.setCapability("platformName", "Android");
-        cap.setCapability("deviceName", "emulator-5554");
-        cap.setCapability("automationName", "UiAutomator2");
+		cap.setCapability("platformName", "Android");
+		// Platform → Android
 
-        cap.setCapability("app", "D:\\Software\\Automation\\SwagLabAPK\\ApiDemos-debug.apk");
+		cap.setCapability("deviceName", "emulator-5554");
+		// Device name (emulator or real device)
 
-        cap.setCapability("autoGrantPermissions", true);
-        cap.setCapability("appWaitActivity", "*");
+		cap.setCapability("automationName", "UiAutomator2");
+		// Automation engine for Android
 
-        // ================= DRIVER =================
-        AndroidDriver driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), cap);
+		cap.setCapability("app", "D:\\Software\\Automation\\SwagLabAPK\\ApiDemos-debug.apk");
+		// Path of APK file to install
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		cap.setCapability("autoGrantPermissions", true);
+		// Automatically allow all permissions
 
-        // ================= TAP ELEMENT =================
-        By tapContent = AppiumBy.accessibilityId("Content");
+		cap.setCapability("appWaitActivity", "*");
+		// Wait for any activity (handles splash screen)
 
-        // ✅ SIMPLE CLICK (BEST)
-        driver.findElement(tapContent).click();
+		// ================= DRIVER =================
+		AndroidDriver driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), cap);
+		// Connect to Appium server
+		// Install and launch app
 
-        // ✅ MODERN TAP (GESTURE WAY 🔥)
-        driver.executeScript("mobile: clickGesture", Map.of(
-                "elementId", ((RemoteWebElement) driver.findElement(tapContent)).getId()
-        ));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		// Implicit wait → wait up to 10 sec for elements
 
-        System.out.println("Tap action performed");
+		// ================= FIXED FLOW =================
 
-        Thread.sleep(3000);
-        driver.quit();
-    }
+		// Step 1: Click "Views"
+		driver.findElement(AppiumBy.accessibilityId("Views")).click();
+		// IMPORTANT:
+		// "Content" is NOT available on home screen
+		// It is inside "Views"
+		// So first we must navigate to Views screen
+
+		// Step 2: Locate "Content"
+		By tapContent = AppiumBy.accessibilityId("Content");
+		// Now "Content" element is visible
+
+		// Step 3: Click "Content"
+		driver.findElement(tapContent).click();
+		// Perform normal click
+		// This is BEST and most used approach in real projects
+
+		// ⚠️ IMPORTANT FIX:
+		// Do NOT use both click() and clickGesture()
+		// Because after click → screen changes
+		// Second call will fail (element not found)
+
+		// Step 4: Print confirmation
+		System.out.println("Tap action performed successfully");
+		// This will now print because no exception occurs
+
+		// Step 5: Wait for observation
+		Thread.sleep(3000);
+		// Not recommended in real framework (use explicit wait)
+
+		// Step 6: Close driver
+		driver.quit();
+		// Ends session and closes app
+	}
 }
+
+/*
+ * 🎯 Interview Explanation (Perfect Answer)
+ * 
+ * “In this scenario, I first ensure correct navigation before interacting with
+ * elements. Since the 'Content' element is inside the 'Views' screen, I first
+ * click on 'Views', then locate and interact with the 'Content' element.
+ * 
+ * I use accessibilityId for locating elements as it is fast and reliable. Also,
+ * I use a simple click() for interaction, which is the preferred approach in
+ * real projects. Gesture-based actions are only used when normal click fails.”
+ * 
+ * 
+ * 🔥 Key Points to Say
+ * 
+ * ✔ Always ensure correct screen before interaction ✔ Use accessibilityId (best
+ * locator for mobile) ✔ Prefer click() over gesture ✔ Avoid duplicate actions
+ * 
+ * 
+ * 🚀 Pro Tip (Impress Interviewer)
+ * 
+ * “In my framework, I handle navigation and element visibility properly to
+ * avoid NoSuchElementException.”
+ * 
+ * 
+ * 🧠 One-Line Answer
+ * 
+ * “I fixed the issue by navigating to the correct screen before performing
+ * action.”
+ */
+// Ends the Appium session
+// Closes app and releases device/emulator resources
+
+////*“This code is written using Appium 2.x with Java Client 8+, 
+/// where we use W3C-based gestures like ‘mobile: clickGesture’. 
+/// In real projects, we usually use driver.findElement().click() for normal tap actions. 
+/// Gesture-based tap is used only in cases where click fails, like overlays or complex UI interactions. 
+/// TouchAction is deprecated, so modern frameworks use W3C gesture APIs.”*///
 
 //================= INTERVIEW QUESTIONS & ANSWERS =================
 
@@ -89,18 +167,16 @@ public class TapGestureTouchAction {
 
 //🔥 PRO TIP
 
-/*👉 In interview, don’t just say code — say like this:
-
-“In my current implementation, I perform tap using click(), 
-and for advanced gestures I use mobile: clickGesture since TouchAction is deprecated.”
-
-*❗ ISSUES IN YOUR CODE
-
-👉 You had:
-
-❌ MobileBy (deprecated)
-❌ TouchAction (deprecated)
-❌ action not defined
-❌ mixing old + new approach*/
-
-
+/*
+ * 👉 In interview, don’t just say code — say like this:
+ * 
+ * “In my current implementation, I perform tap using click(), and for advanced
+ * gestures I use mobile: clickGesture since TouchAction is deprecated.”
+ * 
+ * ❗ ISSUES IN YOUR CODE
+ * 
+ * 👉 You had:
+ * 
+ * ❌ MobileBy (deprecated) ❌ TouchAction (deprecated) ❌ action not defined ❌
+ * mixing old + new approach
+ */
