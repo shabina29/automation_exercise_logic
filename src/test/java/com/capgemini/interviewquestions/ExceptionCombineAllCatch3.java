@@ -1,6 +1,6 @@
 package com.capgemini.interviewquestions;
 
-public class Exception_Combine_AllCatch3 {
+public class ExceptionCombineAllCatch3 {
 
 	public static void main(String[] args) {
 

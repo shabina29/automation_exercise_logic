@@ -1,6 +1,6 @@
 package com.capgemini.interviewquestions;
 
-public class Exception_With_Finally {
+public class ExceptionWithFinally {
 
 	public static void main(String[] args) {
 		int a;

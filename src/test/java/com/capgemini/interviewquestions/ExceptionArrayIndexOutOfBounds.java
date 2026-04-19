@@ -1,6 +1,6 @@
 package com.capgemini.interviewquestions;
 
-public class Exception_ArrayIndexOutOfBounds {
+public class ExceptionArrayIndexOutOfBounds {
 
 	public static void main(String[] args) {
 
