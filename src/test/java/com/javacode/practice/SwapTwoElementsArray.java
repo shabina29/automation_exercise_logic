@@ -1,6 +1,6 @@
 package com.javacode.practice;
 
-public class Swap_TwoElements_Array {
+public class SwapTwoElementsArray {
 
 	public static void main(String[] args) {
 

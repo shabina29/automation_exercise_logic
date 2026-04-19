@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 //Learn auto closable ? What it is ? Prepare for the interview
-public class Exception7_TryWithResources {
+public class Exception7TryWithResources {
 	public static void main(String[] args)
 	{
 		//System.out.println(System.getProperty("user.dir"));

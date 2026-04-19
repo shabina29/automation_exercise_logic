@@ -1,6 +1,6 @@
 package com.javacode.practice;
 
-public class Swapping_BestApproach {
+public class SwappingBestApproach {
 	
 	public static void main(String[]args)
 	{
