@@ -1,100 +1,109 @@
 package com.live.interview.questions;
+// Package declaration → organizes class in proper folder structure
 
 public class MergeStringImportant {  
-    // Define a class named MergeStrings
+    // Define a class named MergeStringImportant
 
-    public static void main(String[] args) {  
-        // Main method → program execution starts here
+    public static void main(String[] args) {
+        // Entry point of Java program → execution starts from here
 
-        String input1 = "abc";  
+        String input1 = "abc";
         // First input string
 
-        String input2 = "pqr";  
+        String input2 = "pqr";
         // Second input string
+        
+        StringBuilder result = new StringBuilder();
+        // StringBuilder is used to store final result
+        // Why StringBuilder?
+        // ✔ String is immutable (slow for multiple concatenations)
+        // ✔ StringBuilder is mutable (better performance)
 
-        StringBuilder result = new StringBuilder();  
-        // Create StringBuilder to store final result
-        // StringBuilder is used because it is faster than String (mutable)
+        // Use a loop to pick characters from both strings
+        for (int i = 0; i < input1.length() || i < input2.length(); i++) {
+            // Loop runs until BOTH strings are fully traversed
+            // Condition explanation:
+            // i < input1.length() → checks first string
+            // i < input2.length() → checks second string
+            // || (OR) ensures loop continues even if one string ends earlier
 
-        int maxLength = Math.max(input1.length(), input2.length());  
-        // Find maximum length between both strings
-        // This ensures loop runs enough times even if lengths are unequal
-
-        for (int i = 0; i < maxLength; i++) {  
-            // Loop from index 0 to maxLength - 1
-            // Each iteration picks characters from both strings
-
-            if (i < input1.length()) {  
-                // Check: is index valid for input1?
-                // Prevents IndexOutOfBoundsException
-
-                result.append(input1.charAt(i));  
-                // Take character from input1 at position i
-                // Append it to result
+            // Add char from first string if it exists
+            if (i < input1.length()) {
+                result.append(input1.charAt(i));
+                // charAt(i) → gets character at index i
+                // append() → adds character to result
             }
 
-            if (i < input2.length()) {  
-                // Check: is index valid for input2?
-
-                result.append(input2.charAt(i));  
-                // Take character from input2 at position i
-                // Append it to result
+            // Add char from second string if it exists
+            if (i < input2.length()) {
+                result.append(input2.charAt(i));
+                // Same logic for second string
             }
         }
 
-        System.out.println(result.toString());  
-        // Convert StringBuilder to String and print final result
+        System.out.println("Final Output: " + result.toString());
+        // Convert StringBuilder → String using toString()
+        // Print final merged string
     }
 }
 
-/*🧠 Step-by-Step Execution
+/*
+🧠 Step-by-Step Execution
+
 🔹 Input
 input1 = "abc"
 input2 = "pqr"
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-🔹 maxLength
-maxLength = 3
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 🔹 Loop Execution
-i	input1[i]	input2[i]	result
-0	a	p	ap
-1	b	q	apbq
-2	c	r	apbqcr
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-🔹 Final Output
-apbqcr
-⚠️ Very Important Logic (Interview Focus)
-👉 Why we use this condition:
-if (i < input1.length())
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+i    input1[i]    input2[i]    result
+0    a            p            ap
+1    b            q            apbq
+2    c            r            apbqcr
 
-👉 To avoid error:
+🔹 Output
+Final Output: apbqcr
 
-IndexOutOfBoundsException
+
+⚠️ VERY IMPORTANT (Interview Point)
+
+👉 Why use || (OR condition)?
+
+i < input1.length() || i < input2.length()
+
+👉 This ensures:
+✔ Loop runs until both strings are fully processed
+✔ Works even if strings have different lengths
+
+
 🔥 Example (Unequal Length)
+
 input1 = "abcd"
 input2 = "pq"
 
-👉 Without if → program crashes ❌
-👉 With if → safe execution ✅
-🎯 Interview Explanation (Best Answer)
+👉 Output:
+apbqcd
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+✔ Extra characters from longer string are still added
 
-“In this program, I use a StringBuilder to efficiently build the result string. 
-I calculate the maximum length of both input strings to ensure full traversal.
- Then, I iterate through the strings and append characters alternately,
-  using boundary checks to handle unequal lengths and avoid index errors.”
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-🚀 Key Concepts You Used
+🎯 Interview Explanation (Perfect Answer)
 
-✔ StringBuilder (performance optimization)
-✔ Math.max()
+“In this program, I merge two strings alternately by iterating through both strings using a loop. 
+I use a StringBuilder for efficient string concatenation. The loop runs until both strings are 
+fully traversed using an OR condition. Inside the loop, I check bounds for each string separately 
+and append characters if they exist. This approach also handles unequal string lengths.”
+
+
+🚀 Key Concepts Used
+
+✔ StringBuilder (performance)
 ✔ charAt()
-✔ Looping logic
+✔ Loop with OR condition
 ✔ Boundary checking
+✔ Handling unequal length
 
-🔥 Pro Tip (Say This in Interview)
 
-“Using StringBuilder improves performance because String concatenation creates new objects every time.”*/
+🔥 Pro Tip (Say This to Impress)
+
+“Time complexity is O(n), where n is the maximum length of the two strings.”
+*/

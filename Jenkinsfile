@@ -18,4 +18,18 @@ pipeline {
             }
         }
     }
+
+    post {
+        always {
+            // ✅ TestNG XML result Jenkins me show karega
+            junit '**/testng-results.xml'
+
+            // ✅ HTML report publish karega (emailable-report.html)
+            publishHTML([
+                reportDir: 'test-output',
+                reportFiles: 'emailable-report.html',
+                reportName: 'TestNG Report'
+            ])
+        }
+    }
 }
