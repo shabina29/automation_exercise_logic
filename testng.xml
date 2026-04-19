@@ -1,0 +1,7 @@
+<suite name="Simple Suite">
+    <test name="Basic Test">
+        <classes>
+            <class name="tests.SimpleTest"/>
+        </classes>
+    </test>
+</suite>
