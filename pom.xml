@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
@@ -9,16 +9,30 @@
     <artifactId>automation_exercise_logic</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <!-- 🔥 Encoding fix (VERY IMPORTANT for your error) -->
+    <!-- ✅ Fix encoding issue -->
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
 
-        <!-- TestNG -->
+        <!-- ✅ Selenium (latest stable compatible with Appium) -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.18.1</version>
+        </dependency>
+
+        <!-- ✅ Appium (NO exclusion, let it use Selenium properly) -->
+        <dependency>
+            <groupId>io.appium</groupId>
+            <artifactId>java-client</artifactId>
+            <version>8.6.0</version>
+        </dependency>
+
+        <!-- ✅ TestNG -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -26,14 +40,14 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Selenium (optional but good for interview/project) -->
+        <!-- ✅ Rest Assured -->
         <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>4.20.0</version>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>5.4.0</version>
         </dependency>
 
-        <!-- WebDriverManager -->
+        <!-- ✅ WebDriverManager -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
@@ -45,29 +59,29 @@
     <build>
         <plugins>
 
-            <!-- 🔥 Compiler plugin (fix encoding error) -->
+            <!-- ✅ Compiler -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                    <source>17</source>
-                    <target>17</target>
-                </configuration>
             </plugin>
 
-            <!-- 🔥 Surefire plugin (runs TestNG) -->
+            <!-- ✅ IMPORTANT: TestNG execution plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M9</version>
+
+                <!-- If using testng.xml -->
+                <!-- Uncomment below if needed -->
+                <!--
                 <configuration>
-                    <!-- Your testng.xml -->
                     <suiteXmlFiles>
                         <suiteXmlFile>testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
+                -->
+
             </plugin>
 
         </plugins>
